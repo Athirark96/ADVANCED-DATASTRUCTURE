@@ -1,0 +1,129 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+struct Node
+{
+  int data;
+  struct Node *link;
+};
+typedef struct Node Node;
+Node *getNode();
+
+void main()
+{
+  int ch,item;
+  Node **top;
+  clrscr();
+  InitializeStack(&top);
+  while(1)
+  {
+    printf("\nStack using LinkedList!!\n");
+    printf("1. Push \n");
+    printf("2. Pop \n");
+    printf("3. StackTop \n");
+    printf("4. Display Full Stack \n");
+    printf("0. Exit\n");
+    printf("Enter the Choice :");
+    scanf("%d",&ch);
+
+    switch(ch)
+    {
+      case 1 : printf("ENter the value to be inserted : ");
+	       scanf("%d",&item);
+	       pushNode(&top,item);
+	       break;
+     case 2 :  popNode(&top,item);
+	       break;
+     case 3 :  stackTop(top,&item);
+	       break;
+     case 4 :  display(top);
+	       break;
+     case 0 :  exit(0);
+    }
+
+  }
+
+}
+
+InitializeStack(Node **top)
+{
+  *top = NULL;
+}
+
+Node *getNode()
+{
+  Node *t;
+  t = (Node *)malloc(sizeof(Node));
+  return t;
+}
+
+pushNode(Node **top,int item)
+{
+  Node *temp;
+  temp = getNode();
+  temp -> data = item;
+  temp -> link = (*top);
+  *top = temp;
+}
+isStackEmpty(Node *t)
+{
+  if(t==NULL)
+    return 1;
+  else
+    return 0;
+}
+
+popNode(Node **top,int item)
+{
+  Node *temp;
+  if(isStackEmpty(*top))
+  {
+      printf("Stack Underflow ");
+      return;
+  }
+  else
+  {
+  temp=*top;
+  item = temp-> data;
+  *top= temp -> link;
+  freeNode(temp);
+  printf("Popped Item : %d",item);
+  }
+}
+
+freeNode(Node *t)
+{
+  free(t);
+}
+
+display(Node *top)
+{
+ int i;
+ if(isStackEmpty(top))
+ {
+   printf("Stack is Empty");
+   return;
+ }
+ else
+ {
+   printf("Stack Contents Are :  ");
+   while(top!=NULL)
+   {
+      printf("%d \t",top->data);
+      top=top->link;
+   }
+ }
+}
+
+
+stackTop(Node *top,int item)
+{
+  if(isStackEmpty(top))
+  {
+    printf("stack is empty");
+    return;
+  }
+  item = top -> data;
+  printf("Top Element : %d",item);
+}
