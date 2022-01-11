@@ -1,0 +1,119 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+
+#define MAX 10
+
+int stack[MAX];
+int top=-1;
+
+void push(int item);
+int pop();
+int stackTop();
+void display();
+int isFull();
+int isEmpty();
+
+int main()
+{
+  int ch,item;
+  clrscr();
+  while(1)
+  {
+    printf("\nStack Operation ....\n");
+    printf("1. push\n");
+    printf("2. pop\n");
+    printf("3. stack top\n");
+    printf("4. Display\n");
+    printf("0. quit\n");
+    printf("Enter the choice :");
+    scanf("%d",&ch);
+
+    switch(ch)
+    {
+
+     case 1 :  printf("Enter the item to be pushed : ");
+	       scanf("%d",&item);
+	       push(item);
+	       break;
+     case 2 :  item = pop();
+	       printf("\nPopped Item : %d ",item);
+	       break;
+     case 3 :  printf("\nItem at top of stack : %d",stackTop());
+	       break;
+     case 4 :  display();
+	       break;
+
+     case 0 :  exit(0);
+    default :  printf("Wrong choice!!");
+
+
+    }
+  }
+
+}
+
+
+void push(int item)
+{
+  if(isFull())
+  {
+    printf("Stack overflow\n");
+    return 1;
+  }
+  top=top+1;
+  stack[top] = item;
+}
+
+int pop()
+{
+  int item;
+  if(isEmpty())
+  {
+    printf("Stack Underflow\n");
+    return 0;
+  }
+  item = stack[top];
+  top = top-1;
+  return item;
+}
+
+int stackTop()
+{
+  if(isEmpty())
+  {
+    printf("Stack Underflow\n");
+    return 0;
+  }
+  return stack[top];
+}
+
+void display()
+{
+  int i;
+  if(isEmpty())
+  {
+    printf("Stack is empty\n");
+    return 1;
+  }
+  printf("Stack elements :\n");
+  for(i=top;i>=0;i--)
+    printf("%d \n",stack[i]);
+  printf("\n");
+}
+
+int isEmpty()
+{
+  if(top==-1)
+    return 1;
+  else
+    return 0;
+}
+
+int isFull()
+{
+  if(top==MAX-1)
+    return 1;
+  else
+    return 0;
+}
