@@ -1,0 +1,95 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+struct Node
+{
+  int data;
+  struct Node *link;
+};
+typedef struct Node Node;
+Node *getNode();
+
+void main()
+{
+  int ch,item;
+  Node *front,*rear,*temp;
+  clrscr();
+  front=NULL;
+  rear=NULL;
+
+  while(1)
+  {
+    printf("\nQueue using LinkedList!!\n");
+    printf("1. Insert \n");
+    printf("2. Delete \n");
+    printf("3. Display \n");
+    printf("0. Exit\n");
+    printf("Enter the Choice :");
+    scanf("%d",&ch);
+
+    switch(ch)
+    {
+      case 1 : printf("ENter the value to be inserted : ");
+	       scanf("%d",&item);
+	       temp=getNode();
+	       temp->data=item;
+	       temp->link=NULL;
+	       if(front==NULL)
+	       {
+		 front=temp;
+		 rear=temp;
+	       }
+	       else
+	       {
+		 rear->link=temp;
+		 rear=temp;
+	       }
+	       break;
+
+     case 2 :  if(front==NULL)
+		 printf("Queue is Empty");
+	       else
+	       {
+		 temp = front;
+		 item = temp -> data;
+		 front = front -> link;
+		 if(front==NULL)
+		   rear = NULL;
+		 printf("Element deleted...");
+		 free(temp);
+
+	       }
+	       break;
+
+     case 3 : if(front==NULL)
+		printf("Queue is empty");
+	      else
+	      {
+		printf("Queue is \n");
+		temp = front;
+		while(temp!=NULL)
+		{
+		  printf("%d\t",temp->data);
+		  temp = temp->link;
+		}
+	      }
+	      break;
+     case 0 : exit(0);
+
+     default : printf("Wrong Choice\n");
+
+    }
+
+  }
+
+}
+
+
+Node *getNode()
+{
+  Node *t;
+  t = (Node *)malloc(sizeof(Node));
+  return t;
+}
+
